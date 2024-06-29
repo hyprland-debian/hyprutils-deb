@@ -31,6 +31,6 @@ jobs:
           artifacts: "*.deb"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - uses: iliabylich/ppa@notify
-      #   with:
-      #     token: ${{ secrets.PPA_TOKEN }}
+      - uses: hyprland-debian/hyprland-debian.github.io@trigger-refresh
+        with:
+          token: ${{ secrets.GH_REFRESH_TOKEN }}
