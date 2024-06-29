@@ -1,0 +1,12 @@
+Source: hyprutils
+Section: utils
+Priority: extra
+Maintainer: John Doe <john@doe.org>
+Standards-Version: VERSION_TEMPLATE
+
+Package: hyprutils
+Section: utils
+Priority: extra
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: Hyprutils is a small C++ library for utilities used across the Hypr* ecosystem.
