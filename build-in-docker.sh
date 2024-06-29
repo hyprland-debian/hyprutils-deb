@@ -2,25 +2,28 @@
 
 set -eux
 
-export VER="0.1.5"
+if [[ ! -v BUILD_VERSION ]]; then
+    echo "BUILD_VERSION is not set"
+    exit 1
+fi
 
 mkdir /build
 cd /build
 
-wget https://github.com/hyprwm/hyprutils/archive/refs/tags/v$VER.tar.gz -O hyprutils-$VER.tar.gz
-tar -xzmf hyprutils-$VER.tar.gz
-cd hyprutils-$VER
+wget https://github.com/hyprwm/hyprutils/archive/refs/tags/v$BUILD_VERSION.tar.gz -O hyprutils-$BUILD_VERSION.tar.gz
+tar -xzmf hyprutils-$BUILD_VERSION.tar.gz
+cd hyprutils-$BUILD_VERSION
 
-cp -r /shared/debian /build/hyprutils-$VER/debian
-sed -i "s/VERSION_TEMPLATE/$VER/g" /build/hyprutils-$VER/debian/changelog
-sed -i "s/VERSION_TEMPLATE/$VER/g" /build/hyprutils-$VER/debian/control
+cp -r /shared/debian /build/hyprutils-$BUILD_VERSION/debian
+sed -i "s/VERSION_TEMPLATE/$BUILD_VERSION/g" /build/hyprutils-$BUILD_VERSION/debian/changelog
+sed -i "s/VERSION_TEMPLATE/$BUILD_VERSION/g" /build/hyprutils-$BUILD_VERSION/debian/control
 dpkg-buildpackage -us -uc
 
 cd /build
 ls -l
 
-cp hyprutils_$VER\_amd64.deb /shared
+cp hyprutils_$BUILD_VERSION\_amd64.deb /shared
 
 cd /shared
-dpkg-deb -c hyprutils_$VER\_amd64.deb
-dpkg -I hyprutils_$VER\_amd64.deb
+dpkg-deb -c hyprutils_$BUILD_VERSION\_amd64.deb
+dpkg -I hyprutils_$BUILD_VERSION\_amd64.deb
